@@ -12,7 +12,11 @@ export default function ChatScreen({ route }) {
       .doc(route.params.chatid)
       .onSnapshot((snapshot) => {
         console.log("New Snapshot!");
-        setMessages(snapshot.data().messages);
+        let newMessages = snapshot.data().messages.map(singleMessage =>{
+            singleMessage.createdAt = singleMessage.createdAt.seconds * 1000
+            return singleMessage
+        })
+        setMessages(newMessages);
       });
 
     return function cleanupBeforeUnmounting() {
@@ -38,11 +42,11 @@ export default function ChatScreen({ route }) {
       onSend={(messages) => onSend(messages)}
       user={{
         // current "blue bubble" user
-        _id: "1",
-        name: "Ashley",
+        _id: firebase.auth().currentUser.uid,
+        name: firebase.auth().currentUser.displayName,
         avatar: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
       }}
-      inverted={true}
+      inverted={false}
       showUserAvatar={true}
       renderUsernameOnMessage={true}
     />
