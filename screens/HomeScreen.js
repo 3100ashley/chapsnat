@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import db from "../firebase";
+import firebase from "firebase/app";
+
 
 export default function HomeScreen({ navigation }) {
   const [chatList, setChatList] = useState([]);
+  
 
   useEffect(() => {
     let chatsRef = db.collection("Chats");
-    chatsRef.get().then((querySnapshot) => {
-    console.log(querySnapshot)
-      let newChatList = [];
-      querySnapshot.forEach((doc) => {
-        let newChat = { ...doc.data() };
-        newChat.id = doc.id;
-        newChatList.push(newChat);
-        console.log(newChatList);
+    let query = chatsRef.where('users','array-contains', firebase.auth().currentUser.uid)
+    let unsubFromNewSnapshots = query.onSnapshot((querySnapshot) => {
+      console.log(querySnapshot)
+        let newChatList = [];
+        querySnapshot.forEach((doc) => {
+          let newChat = { ...doc.data() };
+          newChat.id = doc.id;
+          newChatList.push(newChat);
+          console.log(newChatList);
+        });
+        setChatList(newChatList);
       });
-      setChatList(newChatList);
-    });
+    return function cleanupBeforeUnmounting(){
+      unsubFromNewSnapshots();
+    }
   }, []);
 
   return (
