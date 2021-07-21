@@ -40,7 +40,7 @@ import {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.inputs}
-            placeholder="Email"
+            placeholder='email'
             keyboardType="email-address"
             onChangeText={setEmail}
           />
