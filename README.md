@@ -2,13 +2,14 @@
 
 # Introduction
 
-Snap Engineering Academy class project. Programmed a Snapchat clone that implements a multi user log in and users are able to create chats with their friends. 
+Snap Engineering Academy class project. Programmed a Snapchat clone that implements a user log in and users are able to create chats with their friends. 
 
 # Main Features
 
-## Feature 1 
+## Chat Feature
 
-https://user-images.githubusercontent.com/60107314/129205524-db09a741-128b-4ea3-a401-cb1d3e7f04cc.MP4
+
+https://user-images.githubusercontent.com/60107314/129205762-492630d7-790b-43e0-92c1-f835629bd501.MP4
 
 
 
